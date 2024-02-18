@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Галерея зображень</title>
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gallery img {
+            filter: grayscale(100%);
+            opacity: 0.5;
+            transition: filter 0.3s, opacity 0.3s;
+            cursor: pointer;
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        .gallery img.active {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gallery">
+    <img src="1636951510_2-bogatyr-club-p-zadnii-fon-chernii-2.jpg" onclick="toggleImage(this)">
+    <img src="1636951510_2-bogatyr-club-p-zadnii-fon-chernii-2.jpg" onclick="toggleImage(this)">
+    <img src="1636951510_2-bogatyr-club-p-zadnii-fon-chernii-2.jpg" onclick="toggleImage(this)">
+    <!-- Додайте інші зображення за необхідності -->
+</div>
+
+<script>
+function toggleImage(img) {
+    img.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>

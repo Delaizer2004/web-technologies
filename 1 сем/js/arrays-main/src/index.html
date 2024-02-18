@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <title>Basic HTML page</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="" type=""></script>
+  </head>
+
+  <body>
+    <section class="code-section">
+      <h1>Hello, world!</h1>
+
+      <p class="code-section__note">
+        To see your JavaScript code output, please, open browser console by
+        pressing F12.
+      </p>
+    </section>
+
+    <script src="script.js"></script>
+
+    <script>
+      // Частина 2 функції
+
+        // addNumber
+        function addNumber(arr, number) {
+            if (number === 0 || isNaN(number)) {
+                return arr;
+            } else if (number < 0) {
+                return [...arr, number];
+            } else {
+                return [number, ...arr];
+            }
+        }
+
+        // compareArrays
+        function compareArrays(arr1, arr2) {
+            if (arr1.length !== arr2.length) {
+                return false;
+            }
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // getNumberOfEven
+        function getNumberOfEven(arr) {
+            return arr.filter((item) => typeof item === 'number' && item % 2 === 0).length;
+        }
+
+        // getSubarray
+        function getSubarray(arr, data) {
+            if (!Array.isArray(arr) || !arr.length || data === undefined) {
+                return [];
+            }
+            const index = arr.indexOf(data);
+            if (index === -1) {
+                return [];
+            }
+            return arr.slice(0, index + 1);
+        }
+
+        // getDuplicateValues
+        function getDuplicateValues(arr) {
+            if (!Array.isArray(arr) || arr.length === 0) {
+                return [];
+            }
+
+            const uniqueValues = new Set();
+            const duplicates = new Set();
+
+            for (const item of arr) {
+                if (uniqueValues.has(item)) {
+                    duplicates.add(item);
+                }
+                uniqueValues.add(item);
+            }
+
+            return [...duplicates];
+        }
+
+        // getMaxNumbers
+        function getMaxNumbers(arr) {
+            if (!Array.isArray(arr) || arr.length === 0) {
+                return [];
+            }
+
+            return arr.map(subArray => {
+                if (!Array.isArray(subArray) || subArray.length === 0) {
+                    return undefined;
+                }
+                return Math.max(...subArray);
+            });
+        }
+      // Частина 2 приклади
+
+        // addNumber
+        let array = [1, 2, 3, 4, 10, 8, 1, 3, 7, 11];
+        let number = 8;
+
+        let newArray = addNumber(array, number);
+        console.log('addNumber(array, 8): ', newArray);
+
+        number = -8;
+        newArray = addNumber(array, number);
+        console.log('addNumber(array, -8): ', newArray);
+
+        number = 0;
+        newArray = addNumber(array, number);
+        console.log('addNumber(array, 0): ', newArray);
+
+        // compareArrays
+        const arr1 = [8, 1, 2, 3, 4, 10, 8, 1, 3, 7, 11];
+        const arr2 = [8, 1, 2, 3];
+        console.log('compareArrays(arr1, arr1): ', compareArrays(arr1, arr1));
+        console.log('compareArrays(arr1, arr2): ', compareArrays(arr1, arr2));
+
+        // getNumberOfEven
+        const arr3 = [8, 1, 2, 3, 4, 10, 8, 1, 3, 7, 11];
+        console.log('getNumberOfEven(arr3): ', getNumberOfEven(arr3));
+
+        // getSubarray
+        let arr4 = [8, 1, 2, 3, 4, 10, 8, 1, 3, 7, 11];
+        let data = 7;
+        console.log('getSubarray(arr4, 7): ', getSubarray(arr4, data));
+
+        data = 0;
+        console.log('getSubarray(arr4, 0): ', getSubarray(arr4, data));
+
+        let arr5 = ["d", "ds", "asdx", "r", "w", "w"];
+        let data1 = "r";
+        console.log('getSubarray(arr5, "r"): ', getSubarray(arr5, data1));
+
+        // getDuplicateValues
+        const arr6 = [8, 1, 2, 3, 4, 10, 8, 1, 3, 7, 1, 1];
+        console.log('getDuplicateValues(arr6): ', getDuplicateValues(arr6));
+
+        const arr7 = ["d", "ds", "asdx", "r", "w", "w"];
+        console.log('getDuplicateValues(arr7): ', getDuplicateValues(arr7));
+
+        // getMaxNumbers
+        const arr8 = [[1, 6, 9, 1], [2, 3, -4, 8], [15]];
+        console.log('getMaxNumbers(arr8): ', getMaxNumbers(arr8));
+
+        const arr9 = [];
+        console.log('getMaxNumbers(arr9): ', getMaxNumbers(arr9));
+    </script>
+  </body>
+</html>

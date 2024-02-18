@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Пошук дат у тексті</title>
+    <script>
+        function findDates(text) {
+            const regex = /\b\d{4}-\d{2}-\d{2}\b/g; // Регулярний вираз для пошуку дат у форматі РРРР-ММ-ДД
+            const foundDates = text.match(regex);
+
+            // Перевірка знайдених дат на валідність
+            const validDates = [];
+            if (foundDates) {
+                for (let i = 0; i < foundDates.length; i++) {
+                    const dateParts = foundDates[i].split('-');
+                    const year = parseInt(dateParts[0], 10);
+                    const month = parseInt(dateParts[1], 10) - 1;
+                    const day = parseInt(dateParts[2], 10);
+
+                    const dateObject = new Date(year, month, day);
+                    if (
+                        dateObject.getFullYear() === year &&
+                        dateObject.getMonth() === month &&
+                        dateObject.getDate() === day
+                    ) {
+                        validDates.push(foundDates[i]); // Додаємо валідну дату до масиву validDates
+                    }
+                }
+            }
+
+            return validDates;
+        }
+
+        function знайтиДати() {
+            const текст = document.getElementById('текст').value;
+            const знайденіДати = findDates(текст);
+
+            const результат = document.getElementById('результат');
+            результат.innerHTML = 'Знайдені дати: ' + (знайденіДати.length > 0 ? знайденіДати.join(', ') : 'немає');
+        }
+    </script>
+</head>
+<body>
+
+<textarea id="текст" placeholder="Введіть текст з датами у форматі РРРР-ММ-ДД"></textarea>
+<button onclick="знайтиДати()">Знайти дати</button>
+
+<div id="результат"></div>
+
+</body>
+</html>

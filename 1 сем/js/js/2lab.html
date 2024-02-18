@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #container {
+      position: relative;
+      border: 1px solid #000;
+      background: rgb(63,94,251);
+      background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(227,6,51,1) 100%);
+    }
+
+    #image {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <img id="image" src="photo_2023-10-06_13-45-30.jpg" width="150" height="150" alt="Moving Image">
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const image = document.getElementById('image');
+
+    function setContainerSize() {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      container.style.width = windowWidth + 'px';
+      container.style.height = windowHeight + 'px';
+    }
+
+    window.addEventListener('resize', setContainerSize);
+
+    setContainerSize();
+
+    let x = 0; 
+    let y = 0; 
+    let speedX = 2; 
+    let speedY = 1.8; 
+
+    function moveImage() {
+      x += speedX;
+      y += speedY;
+
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      const imageWidth = image.clientWidth;
+      const imageHeight = image.clientHeight;
+
+      if (x + imageWidth >= containerWidth || x <= 0) {
+        speedX *= -1;
+      }
+
+      if (y + imageHeight >= containerHeight || y <= 0) {
+        speedY *= -1;
+      }
+
+      image.style.left = x + 'px';
+      image.style.top = y + 'px';
+
+      requestAnimationFrame(moveImage);
+    }
+
+    moveImage();
+  </script>
+</body>
+</html>

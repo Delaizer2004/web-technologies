@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shape Class</title>
+  <style>
+    #canvas {
+      width: 300px;
+      height: 300px;
+      border: 1px solid black;
+      margin-bottom: 10px;
+    }
+
+    .paint-scale {
+      width: 300px;
+      height: 20px;
+      border: 1px solid black;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .paint-level {
+      height: 100%;
+      background-color: blue;
+    }
+  </style>
+  <script>
+    class Shape {
+      static total = 100; // Початкова кількість фарби
+
+      constructor(a) {
+        this.a = a;
+      }
+
+      static fill() {
+        Shape.total = 100; // Поповнення фарби до 100%
+        document.querySelector('.paint-level').style.width = '100%';
+        console.log('Фарбу поповнено до 100%');
+      }
+
+      draw() {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (Shape.total >= this.a) {
+          Shape.total -= this.a;
+          const fillColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // Випадковий колір для фігури
+          ctx.fillStyle = fillColor;
+
+          if (this.a % 2 === 0) {
+            // Намалювати квадрат
+            ctx.fillRect(10, 10, this.a * 10, this.a * 10);
+          } else {
+            // Намалювати коло
+            ctx.beginPath();
+            ctx.arc(150, 150, this.a * 5, 0, 2 * Math.PI);
+            ctx.fill();
+          }
+
+          const paintLevel = (Shape.total / 100) * 300;
+          document.querySelector('.paint-level').style.width = `${paintLevel}px`;
+          console.log(`Намальовано фігуру розміром ${this.a}. Залишилося фарби: ${Shape.total}`);
+        } else {
+          const message = document.getElementById('message');
+          message.innerText = 'Недостатньо фарби для намальовання цієї фігури';
+          message.style.color = 'red';
+        }
+      }
+    }
+
+    function createShape() {
+      const radiusOrSide = parseInt(document.getElementById('radiusOrSide').value);
+      const shape = new Shape(radiusOrSide);
+      shape.draw();
+    }
+
+    function fillPaint() {
+      Shape.fill();
+      document.getElementById('message').innerText = '';
+    }
+  </script>
+</head>
+<body>
+  <h1>Робота з класом Shape</h1>
+  <canvas id="canvas" width="300" height="300"></canvas>
+  <br>
+  <label for="radiusOrSide">Введіть радіус кола або довжину сторони квадрата:</label>
+  <input type="number" id="radiusOrSide">
+  <button onclick="createShape()">Намалювати фігуру</button>
+  <button onclick="fillPaint()">Поповнити фарбу</button>
+  <div class="paint-scale">
+    <div class="paint-level"></div>
+  </div>
+  <p id="message"></p>
+</body>
+</html>

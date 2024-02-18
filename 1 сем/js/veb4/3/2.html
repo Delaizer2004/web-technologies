@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Обрані електронні адреси</title>
+</head>
+<body>
+
+<h2>Виберіть електронні адреси:</h2>
+
+<input type="checkbox" id="email1" value="example1@example.com" onchange="додатиАдресу(this)">
+<label for="email1">example1@example.com</label><br>
+
+<input type="checkbox" id="email2" value="example2@example.com" onchange="додатиАдресу(this)">
+<label for="email2">example2@example.com</label><br>
+
+<input type="checkbox" id="email3" value="example3@example.com" onchange="додатиАдресу(this)">
+<label for="email3">example3@example.com</label><br>
+
+<div id="вибраніАдреси"></div>
+
+<script>
+function додатиАдресу(checkbox) {
+    const вибраніАдреси = document.getElementById('вибраніАдреси');
+    const адреса = checkbox.value;
+
+    let обраніАдреси = '';
+
+    if (вибраніАдреси.textContent !== '') {
+        обраніАдреси = вибраніАдреси.textContent;
+    }
+
+    if (checkbox.checked) {
+        обраніАдреси += адреса + ', ';
+    } else {
+        обраніАдреси = обраніАдреси.replace(адреса + ', ', '');
+    }
+
+    вибраніАдреси.textContent = обраніАдреси;
+}
+</script>
+
+</body>
+</html>

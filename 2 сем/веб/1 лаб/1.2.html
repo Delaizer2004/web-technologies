@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптивна веб-сторінка</title>
+    
+</head>
+<body>
+    <div class="content-container">
+        <div id="header">Хедер</div>
+    </div>
+    <div class="content-container">
+        <div id="top-block">Верхній блок</div>
+    </div>
+    <div class="content-container">
+        <div id="left-block">Лівий блок</div>
+        <div id="main-block">
+            <h1>Заголовок</h1>
+            <ul>
+                <li>Пункт 1</li>
+                <li>Пункт 2</li>
+                <li>Пункт 3</li>
+            </ul>
+            <div>
+                <p><span>Параграф 1: </span>Текст параграфу 1.</p>
+                <p><span>Параграф 2: </span>Текст параграфу 2.</p>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        
+        <div id="footer">Футер</div>
+    </div>
+    
+    <style>
+        /* Загальні стилі */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 0 100px; /* відступи зліва та справа */
+        }
+        /* Стилі для блоку з ненумерованим списком та текстом */
+        #main-block {
+            background-color: #f0f0f0;
+            padding: 20px;
+            transition: background-color 0.3s;
+            max-width: 100%;
+            width: 100%;
+        }
+        /* Стилі для хедера, верхнього блоку, лівого блоку та футера */
+        #header, #top-block, #left-block, #footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            width: 100%; /* займають всю ширину контейнера */
+        }
+        /* Підсвічування блоків при наведенні */
+        #header:hover, #top-block:hover, #left-block:hover, #main-block:hover, #footer:hover {
+            background-color: #555;
+        }
+        /* Додаткові стилі */
+        #top-block, #left-block {
+            margin: 0 0;
+        }
+        #left-block {
+            margin-right: 0;
+        }
+    </style>
+</body>
+</html>

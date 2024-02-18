@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Перетворення snake_case у lowerCamelCase</title>
+    <script>
+        function toCamelCase(snakeCase) {
+            return snakeCase.replace(/_([a-z])/g, function(match, letter) {
+                return letter.toUpperCase();
+            });
+        }
+
+        function перетворити() {
+            const вхіднеЗначення = document.getElementById('вхід').value;
+            const результат = toCamelCase(вхіднеЗначення);
+
+            document.getElementById('результат').innerHTML = 'Результат: ' + результат;
+        }
+    </script>
+</head>
+<body>
+
+<input type="text" id="вхід" placeholder="Введіть значення у стилі snake_case">
+<button onclick="перетворити()">Перетворити</button>
+
+<div id="результат"></div>
+
+</body>
+</html>

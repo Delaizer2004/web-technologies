@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Кошик покупок</title>
+</head>
+<body>
+
+<h2>Список товарів</h2>
+
+<ul id="products">
+    <li>Товар 1 <button onclick="додатиВКошик('Товар 1')">Замовити</button></li>
+    <li>Товар 2 <button onclick="додатиВКошик('Товар 2')">Замовити</button></li>
+    <li>Товар 3 <button onclick="додатиВКошик('Товар 3')">Замовити</button></li>
+    <!-- Додайте інші товари за необхідності -->
+</ul>
+
+<h2>Кошик</h2>
+
+<ul id="cart"></ul>
+
+<script>
+function додатиВКошик(товар) {
+    const cart = document.getElementById('cart');
+    const li = document.createElement('li');
+    li.textContent = товар;
+    cart.appendChild(li);
+}
+</script>
+
+</body>
+</html>

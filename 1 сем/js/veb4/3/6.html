@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Зміна кольору секції форми при фокусуванні</title>
+    <style>
+        .form-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .form-section.active {
+            background-color: #e0e0f0;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form">
+    <div class="form-section">
+        <label for="name">Ім'я:</label>
+        <input type="text" id="name" name="name">
+    </div>
+
+    <div class="form-section">
+        <label for="email">Електронна пошта:</label>
+        <input type="email" id="email" name="email">
+    </div>
+
+    <div class="form-section">
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password">
+    </div>
+
+    <div class="form-section">
+        <label for="message">Повідомлення:</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+    </div>
+
+    <div class="form-section">
+        <label for="country">Країна:</label>
+        <select id="country" name="country">
+            <option value="ukraine">Україна</option>
+            <option value="usa">США</option>
+            <option value="germany">Німеччина</option>
+        </select>
+    </div>
+</div>
+
+<script>
+const formSections = document.querySelectorAll('.form-section');
+
+formSections.forEach(section => {
+    const inputElements = section.querySelectorAll('input, textarea, select');
+    inputElements.forEach(input => {
+        input.addEventListener('focus', () => {
+            formSections.forEach(sec => sec.classList.remove('active'));
+            section.classList.add('active');
+        });
+    });
+});
+</script>
+
+</body>
+</html>

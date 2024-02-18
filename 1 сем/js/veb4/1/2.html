@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Опублікувати дату у визначеному форматі</title>
+    <script>
+        function опублікуватиДата() {
+            let введенаДата = document.getElementById('введенаДата').value;
+            let поточнаДата = new Date();
+
+            // Розділити введену дату на складові: день, місяць та рік
+            let складові = введенаДата.split(/\.|-|\//);
+            let день = parseInt(складові[0]);
+            let місяць = parseInt(складові[1]) - 1; // Місяці в JavaScript починаються з 0
+            let рік = parseInt(складові[2]);
+
+            let введенаДатаОбєкт = new Date(рік, місяць, день);
+            
+            // Визначення різниці між введеною датою та поточною
+            let різниця = поточнаДата - введенаДатаОбєкт;
+            let різницяВДнях = Math.floor(різниця / (1000 * 60 * 60 * 24));
+
+            // Формування результату згідно умов завдання
+            if (різницяВДнях === 0) {
+                document.getElementById('результат').innerHTML = 'Сьогодні';
+            } else if (різницяВДнях === 1) {
+                document.getElementById('результат').innerHTML = 'Вчора';
+            } else if (різницяВДнях >= 2 && різницяВДнях <= 6) {
+                document.getElementById('результат').innerHTML = різницяВДнях + ' дні тому';
+            } else if (різницяВДнях === 7) {
+                document.getElementById('результат').innerHTML = 'Тиждень тому';
+            } else if (рік === поточнаДата.getFullYear() - 1) {
+                document.getElementById('результат').innerHTML = 'Рік тому';
+            } else {
+                // Форматування дати у вигляді РРРР.ММ.ДД
+                let форматованаДата = рік + '.' + (місяць + 1).toString().padStart(2, '0') + '.' + день.toString().padStart(2, '0');
+                document.getElementById('результат').innerHTML = форматованаДата;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<input type="text" id="введенаДата" placeholder="Введіть дату (дд.мм.рррр або дд/мм/рррр або дд-мм-рррр)">
+<button onclick="опублікуватиДата()">Опублікувати</button>
+
+<div id="результат"></div>
+
+</body>
+</html>

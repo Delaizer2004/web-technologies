@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Regular Expressions Tasks</title>
+</head>
+<body>
+
+<script>
+  // Завдання 1: Знаходження всіх дат у форматі РРРР-ММ-ДД
+  function findDates(text) {
+    const datePattern = /\b\d{4}-\d{2}-\d{2}\b/g;
+    return text.match(datePattern);
+  }
+
+  // Завдання 2: Перетворення імен змінних із snake_case в lowerCamelCase
+  function toCamelCase(snakeStr) {
+    return snakeStr.replace(/_([a-z])/g, function (match, group1) {
+      return group1.toUpperCase();
+    });
+  }
+
+  // Завдання 3: Перетворення lowerCamelCase в snake_case
+
+  function toSnakeCase(camelStr){
+    return camelStr.replace(/[\w]([A-Z])/g, function(match) {
+        return match[0] + '_' + match[1].toLowerCase();
+    });
+  }
+
+  // Завдання 4: Знаходження кольорів у форматі #ABC або #ABCDEF
+  function findHexColor(text) {
+    const hexColorPattern = /#[0-9A-Fa-f]{3}(?:[0-9A-Fa-f]{3})?\b/g;
+    const hexColors = text.match(hexColorPattern);
+    return hexColors ? hexColors[0] : null;
+  }
+
+  // Приклад використання функцій
+  const text = "Today is 2023-11-24 and tomorrow is 2023-11-25. #ABCDEF is a hex color.";
+
+  // Завдання 1: Знайти всі дати
+  const dates = findDates(text);
+  console.log("Dates found:", dates);
+
+  // Завдання 2: Перетворення імені змінної з snake_case в lowerCamelCase
+  const snakeVariable = "my_variable";
+  const camelVariable = toCamelCase(snakeVariable);
+  console.log("CamelCase variable:", camelVariable);
+
+  // Завдання 3: Перетворення lowerCamelCase в snake_case
+  const camelVariable2 = "newBrandProduct";
+  const snakeVariable2 = toSnakeCase(camelVariable2);
+  console.log("SnakeCase variable:", snakeVariable2);
+
+  // Завдання 4: Знайти колір у форматі #ABC або #ABCDEF
+  const colorText = "The text contains #ABCDEF color.";
+  const hexColor = findHexColor(colorText);
+  console.log("Hex color found:", hexColor);
+</script>
+
+</body>
+</html>

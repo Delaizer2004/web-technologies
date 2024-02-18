@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Пошук hex-кольорів у тексті</title>
+    <script>
+        function findHexColor(text) {
+            const regex = /#([A-Fa-f0-9]{3}){1,2}\b/g; // Регулярний вираз для пошуку колірів у форматі #ABC або #ABCDEF
+            const foundColors = text.match(regex);
+
+            return foundColors ? foundColors : null;
+        }
+
+        function знайтиКольори() {
+            const вхіднеТекст = document.getElementById('вхід').value;
+            const знайденіКольори = findHexColor(вхіднеТекст);
+
+            const результат = document.getElementById('результат');
+            if (знайденіКольори !== null) {
+                результат.innerHTML = 'Знайдені кольори: ' + знайденіКольори.join(', ');
+            } else {
+                результат.innerHTML = 'Кольори не знайдено';
+            }
+        }
+    </script>
+</head>
+<body>
+
+<textarea id="вхід" placeholder="Введіть текст з hex-кольорами"></textarea>
+<button onclick="знайтиКольори()">Знайти кольори</button>
+
+<div id="результат"></div>
+
+</body>
+</html>

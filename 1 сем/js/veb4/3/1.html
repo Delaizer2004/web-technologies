@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вибір країн</title>
+</head>
+<body>
+
+<h2>Виберіть країни:</h2>
+
+<input type="checkbox" id="ukraine" value="ua">
+<label for="ukraine">Україна</label><br>
+
+<input type="checkbox" id="usa" value="usa">
+<label for="usa">США</label><br>
+
+<input type="checkbox" id="germany" value="ga">
+<label for="germany">Німеччина</label><br>
+
+<input type="checkbox" id="france" value="fa">
+<label for="france">Франція</label><br>
+
+<button onclick="вивестиВибрані()">Показати вибрані</button>
+
+<p id="результат"></p>
+
+<script>
+function вивестиВибрані() {
+    const країни = document.querySelectorAll('input[type="checkbox"]:checked');
+    const вибраніКраїни = Array.from(країни).map(checkbox => checkbox.value).join(', ');
+
+    const результат = document.getElementById('результат');
+    результат.textContent = 'Вибрані країни: ' + вибраніКраїни;
+}
+</script>
+
+</body>
+</html>

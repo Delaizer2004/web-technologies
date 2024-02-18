@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Галерея зображень з ефектом слайдингу</title>
+    <style>
+        .container {
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+
+        .images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .images img {
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" onclick="показатиНаступне()">
+    <div class="images">
+        <img src="photo_2023-10-06_13-45-30.jpg" alt="Зображення 1">
+        <img src="mini_4.jpg" alt="Зображення 2">
+        <img src="1636951510_2-bogatyr-club-p-zadnii-fon-chernii-2.jpg" alt="Зображення 3">
+        <!-- Додайте інші зображення за необхідності -->
+    </div>
+</div>
+
+<script>
+let поточне = 0;
+const images = document.querySelectorAll('.images img');
+
+function показатиНаступне() {
+    поточне = (поточне + 1) % images.length;
+    const переміщення = -поточне * images[0].clientWidth;
+    document.querySelector('.images').style.transform = `translateX(${переміщення}px)`;
+}
+</script>
+
+</body>
+</html>

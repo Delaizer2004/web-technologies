@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Нонограма</title>
+  <style>
+    .cell {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #000;
+      display: inline-block;
+    }
+
+    .row {
+      margin-bottom: 5px;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <div class="nonogram-container" id="nonogramContainer"></div>
+  
+  <script>
+    // Функція для створення сітки нонограми
+    function generateNonogram(rows, cols) {
+      const nonogram = [];
+      for (let i = 0; i < rows; i++) {
+        const row = [];
+        for (let j = 0; j < cols; j++) {
+          // Генеруємо випадкові значення (0 або 1) для клітинок
+          row.push(Math.round(Math.random()));
+        }
+        nonogram.push(row);
+      }
+      return nonogram;
+    }
+
+    // Функція для відображення сітки нонограми у HTML
+    function displayNonogram(nonogram) {
+      const nonogramContainer = document.getElementById('nonogramContainer');
+      nonogramContainer.innerHTML = '';
+
+      nonogram.forEach(row => {
+        const rowElem = document.createElement('div');
+        rowElem.classList.add('row');
+
+        row.forEach(cell => {
+          const cellElem = document.createElement('div');
+          cellElem.classList.add('cell');
+          cellElem.style.backgroundColor = cell === 1 ? '#000' : '#FFF';
+          rowElem.appendChild(cellElem);
+        });
+
+        nonogramContainer.appendChild(rowElem);
+      });
+    }
+
+    // Приклад створення та відображення нонограми розміром 5x5
+    const rows = 5;
+    const cols = 5;
+    const sampleNonogram = generateNonogram(rows, cols);
+    displayNonogram(sampleNonogram);
+  </script>
+</body>
+</html>
+

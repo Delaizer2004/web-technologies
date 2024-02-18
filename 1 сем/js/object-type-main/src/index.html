@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>Basic HTML page</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section class="code-section">
+        <h1>Hello, world!</h1>
+
+        <p class="code-section__note">To see your JavaScript code output, please, open browser console by pressing F12.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Частина 1 функції
+
+        // "createUser"
+        function createUser(firstName, lastName) {
+            return {
+                firstName: firstName,
+                lastName: lastName,
+            };
+        }
+
+        // "getFullName"
+        function getFullName(user) {
+            if (user && user.firstName && user.lastName) {
+                return user.firstName + ' ' + user.lastName;
+            }
+            return '';
+        }
+
+        // "getWidth"
+        function getWidth(params) {
+            if (params && params.styling && params.styling.sizes && params.styling.sizes.width) {
+                return params.styling.sizes.width;
+            }
+            return null;
+        }
+
+        // "extendObject"
+        function extendObject(obj, isValid) {
+            const clonedObject = { ...obj };
+            clonedObject.isValid = isValid;
+            return clonedObject;
+        }
+
+        // "sumPrices"
+        function sumPrices(prices) {
+            let sum = 0;
+                for (const key in prices) {
+                    if (typeof prices[key] === 'number' && isFinite(prices[key])) {
+                        sum += prices[key];
+                    }
+                }
+            return sum;
+        }
+
+        // "createUserWithFullName"
+        function createUserWithFullName(firstName, lastName) {
+            const user = createUser(firstName, lastName);
+
+            user.setFirstName = function (newFirstName) {
+                this.firstName = newFirstName;
+            };
+
+            user.setLastName = function (newLastName) {
+                this.lastName = newLastName;
+            };
+
+            user.getFullName = function () {
+                return getFullName(this);
+            };
+
+            return user;
+        }
+
+        
+
+        // Частина 1 приклади
+
+        // createUser
+        let user = createUser('Stan', 'Lee');
+
+        // getFullName
+        let fullName = getFullName(user);
+        console.log(fullName); // 'Stan Lee'
+
+        // getWidth
+        let params1 = {
+            styling: {
+                sizes: {
+                    width: '777px',
+                    height: '888px',
+                }
+            }
+        };
+        let width1 = getWidth(params1);
+        console.log(width1); // '777px'
+
+        // extendObject
+        let obj = {
+            title: 'Simple Object',
+            isAdmin: false,
+        };
+        let clonedObject = extendObject(obj, true);
+        console.log(clonedObject);
+
+        // sumPrices
+        let prices = {
+            pineapples: 1100,
+            lemons: 100,
+            tomatoes: 700,
+            Year: '1973',
+            sun: 'is shining',
+            areAllNumbers: NaN,
+            isPayed: false,
+            from: Infinity,
+            to: -Infinity,
+        };
+        let result1 = sumPrices(prices);
+        console.log(result1); // 1900
+
+        // createUserWithFullName
+        let userWithFullName = createUserWithFullName('Stan', 'Lee');
+        userWithFullName.setFirstName('Will');
+        userWithFullName.setLastName('Smith');
+        let updatedFullName = userWithFullName.getFullName();
+        console.log(updatedFullName); // 'Will Smith'
+
+        
+    </script>
+</body>
+
+</html>

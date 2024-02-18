@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .traffic-light {
+      width: 100px;
+      height: 300px;
+      background-color: #333;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .light {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #555;
+    }
+
+    .red {
+      background-color: red;
+    }
+
+    .yellow {
+      background-color: yellow;
+    }
+
+    .green {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+
+<div id="trafficLight" class="traffic-light">
+  <div id="redLight" class="light red"></div>
+  <div id="yellowLight" class="light"></div>
+  <div id="greenLight" class="light"></div>
+</div>
+
+<script>
+  class TrafficLight {
+    constructor() {
+      this.redLight = document.getElementById('redLight');
+      this.yellowLight = document.getElementById('yellowLight');
+      this.greenLight = document.getElementById('greenLight');
+      this.run();
+    }
+
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async run() {
+      while (true) {
+        this.redLight.classList.add('red');
+        await this.sleep(2000);
+
+        
+        this.yellowLight.classList.add('yellow');
+        await this.sleep(1000);
+
+        this.redLight.classList.remove('red');
+        this.yellowLight.classList.remove('yellow');
+        this.greenLight.classList.add('green');
+        await this.sleep(2000);
+
+        this.greenLight.classList.remove('green');
+        await this.sleep(500);
+
+        this.greenLight.classList.add('green');
+        await this.sleep(500);
+
+        this.greenLight.classList.remove('green');
+        this.yellowLight.classList.add('yellow');
+        await this.sleep(1000);
+
+        this.yellowLight.classList.remove('yellow');
+      }
+    }
+  }
+
+  new TrafficLight();
+</script>
+
+</body>
+</html>

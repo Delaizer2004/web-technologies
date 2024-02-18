@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптивна веб-сторінка</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>Header</header>
+        <div class="content">
+            <div class="main-block">
+                <h1>Main Block</h1>
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                </ul>
+                <div>
+                    <span>This is a sample text with </span>
+                    <p><b>bold</b> and <i>italic</i> formatting.</p>
+                </div>
+            </div>
+            <div class="blocks">
+                <div class="block1">
+                    <div class="side-block1">Side Block 1</div>
+                </div>
+                <div class="side-block23">
+                    <div class="side-block">Side Block 2</div>
+                <div class="side-block">Side Block 3</div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <footer>Footer</footer>
+    </div>
+    <style>
+        body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+header, footer {
+    background-color: lightblue;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+}
+.side-block23 {
+    display: flex;
+    width: 50%;
+}
+.block {
+    width: 100%;
+}
+
+.main-block {
+    background-color: lightyellow;
+    flex: 1;
+    padding: 20px;
+}
+
+.side-block {
+    background-color: lightgreen;
+    
+    padding: 20px;
+}
+.side-block1 {
+    background-color: lightgreen;
+    padding: 20px;
+
+}
+
+
+
+.main-block:hover, .side-block:hover {
+    background-color: lightgray;
+}
+
+    </style>
+</body>
+</html>

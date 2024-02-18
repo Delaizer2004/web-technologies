@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Зміна розміру зображення</title>
+    <script>
+        function змінитиРозмір() {
+            const img = document.getElementById('image');
+            if (!img.dataset.state) {
+                img.dataset.state = 'збільшено';
+                img.style.width = (img.clientWidth * 2) + 'px';
+                img.style.height = (img.clientHeight * 2) + 'px';
+            } else {
+                img.removeAttribute('data-state');
+                img.style.width = null;
+                img.style.height = null;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<img id="image" src="mini_4.jpg" alt="Зображення">
+
+<button onclick="змінитиРозмір()">Змінити розмір</button>
+
+</body>
+</html>

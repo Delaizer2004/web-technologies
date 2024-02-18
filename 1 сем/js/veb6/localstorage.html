@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Збереження даних форми в LocalStorage</title>
+</head>
+<body>
+
+  <form id="myForm">
+    <label for="name">Ім'я:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+
+    <label for="message">Повідомлення:</label><br>
+    <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+
+    <input type="checkbox" id="subscribe" name="subscribe">
+    <label for="subscribe">Підписатися на розсилку</label><br><br>
+
+    <label>Оберіть опцію:</label><br>
+    <input type="radio" id="option1" name="option" value="option1">
+    <label for="option1">Опція 1</label><br>
+    <input type="radio" id="option2" name="option" value="option2">
+    <label for="option2">Опція 2</label><br><br>
+
+    <label for="selectBox">Виберіть зі списку:</label>
+    <select id="selectBox" name="selectBox">
+      <option value="value1">Варіант 1</option>
+      <option value="value2">Варіант 2</option>
+      <option value="value3">Варіант 3</option>
+    </select><br><br>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+
+    // Функція для зберігання даних в LocalStorage при введенні
+    function saveToLocalStorage(event) {
+      const { id, value } = event.target;
+      localStorage.setItem(id, value);
+    }
+
+    // Відслідковування події input на всіх полях форми
+    form.querySelectorAll('input, textarea, select').forEach(element => {
+      element.addEventListener('input', saveToLocalStorage);
+      const savedValue = localStorage.getItem(element.id);
+      if (savedValue) {
+        element.value = savedValue;
+      }
+    });
+  </script>
+
+</body>
+</html>

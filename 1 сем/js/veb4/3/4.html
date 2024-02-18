@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Перевірка таблиці множення</title>
+    <style>
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Перевірка таблиці множення</h2>
+
+<p id="totalScore">Загальний рахунок: 0</p>
+<button onclick="наступнеЗавдання()">Наступне завдання</button>
+
+<p id="question"></p>
+
+<input type="text" id="відповідь" placeholder="Введіть відповідь">
+<button onclick="перевірити()">Перевірити</button>
+
+<p id="результат"></p>
+
+<script>
+let поточнийЗалік = 0;
+let поточнеЗавдання = 0;
+const завдання = [
+    { питання: "2 * 3 =", відповідь: "6" },
+    { питання: "5 * 7 =", відповідь: "35" },
+    { питання: "8 * 4 =", відповідь: "32" }
+];
+
+function наступнеЗавдання() {
+    const питання = document.getElementById('question');
+    const відповідь = document.getElementById('відповідь');
+    const результат = document.getElementById('результат');
+
+    if (поточнеЗавдання < завдання.length) {
+        питання.textContent = завдання[поточнеЗавдання].питання;
+        відповідь.value = '';
+        результат.textContent = '';
+    } else {
+        результат.textContent = 'Завдання закінчено! Загальний рахунок: ' + поточнийЗалік;
+    }
+}
+
+function перевірити() {
+    const відповідь = document.getElementById('відповідь').value;
+    const результат = document.getElementById('результат');
+
+    if (відповідь.trim() === завдання[поточнеЗавдання].відповідь) {
+        поточнийЗалік++;
+        результат.textContent = 'Правильно!';
+    } else {
+        результат.textContent = 'Неправильно. Правильна відповідь: ' + завдання[поточнеЗавдання].відповідь;
+    }
+
+    поточнеЗавдання++;
+    document.getElementById('totalScore').textContent = 'Загальний рахунок: ' + поточнийЗалік;
+    наступнеЗавдання();
+}
+
+наступнеЗавдання();
+</script>
+
+</body>
+</html>

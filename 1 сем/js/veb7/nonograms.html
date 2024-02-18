@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Lab 7: Nonograms!</title>
+    <link href="../../../DocLib/2023_JS_&#1047;&#1072;&#1074;&#1076;&#1072;&#1085;&#1085;&#1103;%20&#1076;&#1086;%20&#1083;&#1072;&#1073;%20&#1088;&#1086;&#1073;&#1110;&#1090;/JS_&#1051;&#1072;&#1073;%20&#1088;&#1086;&#1073;%20&#8470;7%20&#1040;&#1085;&#1110;&#1084;&#1072;&#1094;&#1110;&#1111;%20JavaScript%20&#1110;%20DOM/nonograms.css" type="text/css" rel="stylesheet">
+  <style>
+    body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  text-align: center;
+}
+
+h1 {
+  font-size: 26pt;
+  margin-bottom: 40px;
+}
+
+.box {
+  border: 1px solid #111;
+}
+
+.box, .col-num-box, .row-num-box {
+  line-height: 24pt;
+}
+
+.box, .col-num-box, #empty-square, #left-nums, #top-nums {
+  float: left;
+}
+
+.clear, #left-nums, #puzzle {
+  clear: both;
+}
+
+.col-num-box, #top-nums {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#empty-square {
+  border-top: 3px solid black;
+  background-color: #111;
+}
+
+.filled {
+  background-color: #000;
+}
+
+#grid {
+  border: 1px solid #000;
+  border-right: 2px solid #000;
+  display: table;
+}
+
+#puzzle {
+  display: inline-block;
+}
+
+.left-row, .row-num-box {
+  float: right;
+}
+
+#left-nums, .left-row {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+#left-nums, #empty-square {
+  border-left: 3px solid #000;
+}
+
+#top-nums {
+  border-top: 3px solid #000;
+}
+
+.thick-right-border {
+  border-right: 2px solid black;
+}
+
+.thick-top-border {
+  border-top: 2px solid black;
+}
+
+.horizontal-divider {
+  border-bottom: 2px solid black;
+}
+
+.vertical-divider {
+  border-left: 2px solid black;
+}
+
+.fifteen .box, .fifteen .col-num-box, .fifteen .row-num-box {
+  width: 30px;
+  height: 30px;
+}
+
+.fifteen #left-nums, .fifteen .left-row {
+  width: 100px;
+}
+
+.five #left-nums, .five .left-row, .five #empty-square {
+  width: 140px;
+}
+
+.five .box, .five .col-num-box, .five .row-num-box {
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+}
+
+.five #empty-square {
+  height: 140px;
+}
+
+.five {
+  font-size: 18pt;
+}
+
+.ten {
+  font-size: 16pt;
+}
+
+.fifteen, .twenty {
+  font-size: 12pt;
+}
+
+.ten #left-nums, .ten .left-row, .ten #empty-square {
+  width: 120px;
+}
+
+.ten #empty-square {
+  height: 120px;
+}
+
+.ten .box, .ten .col-num-box, .ten .row-num-box {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.fifteen #empty-square {
+  height: 120px;
+  width: 100px;
+}
+
+.twenty #left-nums, .twenty .left-row, .twenty #empty-square {
+  width: 80px;
+}
+
+.twenty .box, .twenty .col-num-box, .twenty .row-num-box {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.twenty #empty-square {
+  height: 80px;
+}
+
+.twenty-five #left-nums, .twenty-five .left-row, .twenty-five #empty-square {
+  width: 90px;
+}
+
+.twenty-five .box, .twenty-five .col-num-box, .twenty-five .row-num-box {
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+}
+
+.twenty-five #empty-square {
+  height: 60px;
+}
+
+.crossed-out {
+  background-image: url('https://courses.cs.washington.edu/courses/cse154/18sp/18sp-data/lab/lab04/slides/hidden/img/x.png');
+  background-size: 100%;
+}
+
+
+  </style>
+  </head>
+  <body>
+    <h1>Nonogram Puzzle!</h1>
+    <div id="puzzle" class="five">
+      <div id="empty-square"></div>
+      <div id="top-nums">
+        <div>
+          <div class="col-num-box vertical-divider">1</div>
+          <div class="col-num-box">2</div>
+          <div class="col-num-box">3</div>
+          <div class="col-num-box">2</div>
+          <div class="col-num-box thick-right-border">1</div>
+        </div>
+        <div>
+          <div class="col-num-box vertical-divider">1</div>
+          <div class="col-num-box">2</div>
+          <div class="col-num-box">1</div>
+          <div class="col-num-box">2</div>
+          <div class="col-num-box thick-right-border">1</div>
+        </div>
+      </div>
+      <div id="left-nums">
+        <div class="left-row thick-top-border">
+          <div class="row-num-box">5</div>
+        </div>
+        <div class="left-row">
+          <div class="row-num-box">3</div>
+        </div>
+        <div class="left-row">
+          <div class="row-num-box">1</div>
+        </div>
+        <div class="left-row">
+          <div class="row-num-box">1</div>
+          <div class="row-num-box">1</div>
+        </div>
+        <div class="left-row horizontal-divider">
+          <div class="row-num-box">5</div>
+        </div>
+      </div>
+      <div id="grid">
+        <div class="box clear thick-top-border vertical-divider"></div>
+        <div class="box thick-top-border"></div>
+        <div class="box thick-top-border"></div>
+        <div class="box thick-top-border"></div>
+        <div class="box thick-top-border"></div>
+        <div class="box clear vertical-divider"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box clear vertical-divider"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box clear vertical-divider"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box clear horizontal-divider vertical-divider"></div>
+        <div class="box horizontal-divider"></div>
+        <div class="box horizontal-divider"></div>
+        <div class="box horizontal-divider"></div>
+        <div class="box horizontal-divider"></div>
+      </div>
+    </div>
+    <script>
+ document.addEventListener('DOMContentLoaded', function() {
+  let isMouseDown = false;
+  let isDragging = false;
+  let lastCell;
+
+  function toggleCellState(cell) {
+    if (cell.classList.contains('filled')) {
+      cell.classList.remove('filled', 'crossed-out');
+    } else {
+      cell.classList.add('filled', 'crossed-out');
+    }
+  }
+
+  function handleCellClick(cell) {
+    if (isDragging) {
+      toggleCellState(cell);
+      lastCell = cell;
+    } else {
+      toggleCellState(cell);
+      lastCell = cell;
+    }
+  }
+
+  function handleCellHover(cell) {
+    if (isMouseDown) {
+      isDragging = true;
+      toggleCellState(cell);
+    }
+  }
+
+  const boxes = document.querySelectorAll('.box');
+
+  boxes.forEach(box => {
+    box.addEventListener('mousedown', () => {
+      isMouseDown = true;
+    });
+    box.addEventListener('mouseup', () => {
+      isMouseDown = false;
+      isDragging = false;
+    });
+    box.addEventListener('mouseenter', () => {
+      if (isMouseDown) {
+        handleCellHover(box);
+      }
+    });
+    box.addEventListener('click', () => {
+      handleCellClick(box);
+    });
+  });
+
+  const clearButton = document.createElement('button');
+  clearButton.textContent = 'Очистити';
+  clearButton.addEventListener('click', function() {
+    boxes.forEach(box => {
+      box.classList.remove('filled', 'crossed-out');
+    });
+  });
+  document.body.appendChild(clearButton);
+});
+
+    </script>
+  </body>
+</html>

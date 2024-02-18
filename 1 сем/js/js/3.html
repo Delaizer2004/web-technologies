@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Таблиця</title>
+</head>
+<body>
+    <input type="text" id="filterInput" placeholder="Фільтр" oninput="filterTable()">
+    <select id="filterColumn" onchange="filterTable()">
+        <option value="name">Ім'я</option>
+        <option value="age">Вік</option>
+    </select>
+    <table id="dataTable" border="1">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Ім'я</th>
+                <th onclick="sortTable(1)">Вік</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button onclick="openAddDialog()">Додати</button>
+
+    <div id="addEditDialog" style="display: none;">
+        <input type="text" id="nameInput" placeholder="Ім'я">
+        <input type="number" id="ageInput" placeholder="Вік">
+        <button onclick="saveRow()">Зберегти</button>
+        <button onclick="closeDialog()">Скасувати</button>
+    </div>
+
+    <div id="deleteDialog" style="display: none;">
+        <p>Ви впевнені, що бажаєте вилучити цей рядок?</p>
+        <button onclick="deleteRow()">Вилучити</button>
+        <button onclick="closeDeleteDialog()">Скасувати</button>
+    </div>
+
+    <script>
+        let data = [
+            { name: 'Іван', age: 25 },
+            { name: 'Марія', age: 30 },
+            { name: 'Петро', age: 22 },
+            { name: 'Оксана', age: 28 },
+            { name: 'Андрій', age: 35 }
+        ];
+
+        let currentRow = -1;
+
+        function populateTable(filteredData = data) {
+            const tableBody = document.querySelector('#dataTable tbody');
+            tableBody.innerHTML = '';
+
+            filteredData.forEach((item, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = item.name;
+                row.insertCell(1).textContent = item.age;
+                const actionsCell = row.insertCell(2);
+                actionsCell.innerHTML = `<button onclick="editRow(${index})">Редагувати</button> <button onclick="openDeleteDialog(${index})">Вилучити</button>`;
+            });
+        }
+
+        function sortTable(column) {
+            data.sort((a, b) => {
+                const x = a[column];
+                const y = b[column];
+                return x < y ? -1 : x > y ? 1 : 0;
+            });
+
+            populateTable();
+        }
+
+        function filterTable() {
+            const filterInput = document.querySelector('#filterInput');
+            const filterValue = filterInput.value.toLowerCase();
+            const filterColumn = document.querySelector('#filterColumn').value;
+
+            const filteredData = data.filter(item => item[filterColumn].toString().toLowerCase().includes(filterValue));
+            populateTable(filteredData);
+        }
+
+        function openAddDialog() {
+            currentRow = -1;
+            document.querySelector('#addEditDialog').style.display = 'block';
+            document.querySelector('#nameInput').value = '';
+            document.querySelector('#ageInput').value = '';
+        }
+
+        function editRow(index) {
+            currentRow = index;
+            document.querySelector('#nameInput').value = data[index].name;
+            document.querySelector('#ageInput').value = data[index].age;
+            document.querySelector('#addEditDialog').style.display = 'block';
+        }
+
+        function closeDialog() {
+            currentRow = -1;
+            document.querySelector('#addEditDialog').style.display = 'none';
+            document.querySelector('#nameInput').value = '';
+            document.querySelector('#ageInput').value = '';
+        }
+
+        function saveRow() {
+            const name = document.querySelector('#nameInput').value;
+            const age = parseInt(document.querySelector('#ageInput').value);
+
+            if (name && !isNaN(age)) {
+                if (currentRow === -1) {
+                    data.push({ name, age });
+                } else {
+                    data[currentRow] = { name, age };
+                }
+
+                populateTable();
+                closeDialog();
+            }
+        }
+
+        function openDeleteDialog(index) {
+            currentRow = index;
+            document.querySelector('#deleteDialog').style.display = 'block';
+        }
+
+        function closeDeleteDialog() {
+            currentRow = -1;
+            document.querySelector('#deleteDialog').style.display = 'none';
+        }
+
+        function deleteRow() {
+            if (currentRow !== -1) {
+                data.splice(currentRow, 1);
+                populateTable();
+                closeDeleteDialog();
+            }
+        }
+
+        populateTable();
+    </script>
+</body>
+</html>

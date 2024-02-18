@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Зміна розміру та поворот блока</title>
+    <style>
+        .block {
+            width: 200px;
+            height: 200px;
+            background-color: #cf1212;
+            border: 1px solid #ccc;
+            transition: all 0.3s ease-in-out;
+            margin: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            max-width: 400px;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        input[type="range"] {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="block" id="block"></div>
+
+<div class="controls">
+    <label for="size">Розмір:</label>
+    <input type="range" id="size" min="100" max="300" value="200">
+    <label for="rotation">Поворот:</label>
+    <input type="range" id="rotation" min="0" max="360" value="0">
+</div>
+
+<script>
+const block = document.getElementById('block');
+const sizeControl = document.getElementById('size');
+const rotationControl = document.getElementById('rotation');
+
+sizeControl.addEventListener('input', function() {
+    block.style.width = this.value + 'px';
+    block.style.height = this.value + 'px';
+});
+
+rotationControl.addEventListener('input', function() {
+    block.style.transform = `rotate(${this.value}deg)`;
+});
+</script>
+
+</body>
+</html>

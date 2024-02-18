@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Перевірка таблиці множення</title>
+    <style>
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Перевірка таблиці множення</h2>
+
+<p id="totalScore">Загальний рахунок: 0</p>
+<button onclick="наступнеЗавдання()">Наступне завдання</button>
+
+<p id="question"></p>
+
+<form id="варіантиВідповіді" onsubmit="перевіритиВідповідь(event)">
+    <input type="radio" id="варіант1" name="варіант" value="option1">
+    <label for="варіант1" id="label1"></label><br>
+    <input type="radio" id="варіант2" name="варіант" value="option2">
+    <label for="варіант2" id="label2"></label><br>
+    <input type="radio" id="варіант3" name="варіант" value="option3">
+    <label for="варіант3" id="label3"></label><br>
+    <button type="submit">Перевірити</button>
+</form>
+
+<p id="результат"></p>
+
+<script>
+let поточнийЗалік = 0;
+let поточнеЗавдання = 0;
+const завдання = [
+    { питання: "2 * 3 =", правильна: "option2", варіанти: ["4", "5", "6"] },
+    { питання: "5 * 7 =", правильна: "option3", варіанти: ["30", "35", "40"] },
+    { питання: "8 * 4 =", правильна: "option1", варіанти: ["28", "32", "36"] }
+];
+
+function наступнеЗавдання() {
+    const питання = document.getElementById('question');
+    const варіанти = document.getElementsByName('варіант');
+    const результат = document.getElementById('результат');
+
+    if (поточнеЗавдання < завдання.length) {
+        питання.textContent = завдання[поточнеЗавдання].питання;
+        варіанти.forEach((варіант, індекс) => {
+            document.getElementById('label' + (індекс + 1)).textContent = завдання[поточнеЗавдання].варіанти[індекс];
+            варіант.checked = false;
+        });
+        результат.textContent = '';
+    } else {
+        результат.textContent = 'Завдання закінчено! Загальний рахунок: ' + поточнийЗалік;
+    }
+}
+
+function перевіритиВідповідь(event) {
+    event.preventDefault();
+    const результат = document.getElementById('результат');
+    const варіанти = document.getElementsByName('варіант');
+    const обранийВаріант = Array.from(варіанти).find(варіант => варіант.checked);
+
+    if (!обранийВаріант) {
+        результат.textContent = 'Будь ласка, оберіть відповідь';
+        return;
+    }
+
+    const обранийВаріантValue = обранийВаріант.value;
+
+    if (завдання[поточнеЗавдання].правильна === обранийВаріантValue) {
+        поточнийЗалік++;
+        результат.textContent = 'Правильно!';
+    } else {
+        результат.textContent = 'Неправильно. Правильна відповідь: ' + завдання[поточнеЗавдання].варіанти[завдання[поточнеЗавдання].правильна.substring(6) - 1];
+    }
+
+    поточнеЗавдання++;
+    document.getElementById('totalScore').textContent = 'Загальний рахунок: ' + поточнийЗалік;
+    наступнеЗавдання();
+}
+
+наступнеЗавдання();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Textarea з історією змін</title>
+</head>
+<body>
+  <div>
+    <button id="prevBtn" onclick="navigateHistory(-1)">← Попередня</button>
+    <button id="nextBtn" onclick="navigateHistory(1)">Наступна →</button>
+    <button id="saveBtn" onclick="saveToHistory()">Зберегти</button>
+  </div>
+  <textarea id="textArea" rows="10"></textarea>
+
+  <script>
+    // Функція для збереження значення textarea у cookie
+    function saveToCookie(value) {
+      document.cookie = "textareaValue=" + encodeURIComponent(value) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    }
+
+    // Функція для отримання значення textarea з cookie
+    function loadFromCookie() {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.startsWith("textareaValue=")) {
+          return decodeURIComponent(cookie.substring("textareaValue=".length));
+        }
+      }
+      return "";
+    }
+
+    // Функція для збереження поточного значення textarea в історію
+    function saveToHistory() {
+      var textarea = document.getElementById('textArea');
+      var currentValue = textarea.value;
+      var history = JSON.parse(localStorage.getItem('textHistory')) || [];
+      history.push(currentValue);
+      localStorage.setItem('textHistory', JSON.stringify(history));
+      document.getElementById('nextBtn').disabled = false; // Активація кнопки "Наступна" після збереження
+      saveToCookie(currentValue); // Збереження поточного значення у cookie
+    }
+
+    // Функція для переміщення по історії змін
+    function navigateHistory(direction) {
+      var textarea = document.getElementById('textArea');
+      var history = JSON.parse(localStorage.getItem('textHistory')) || [];
+      var currentIndex = history.indexOf(textarea.value);
+
+      if (direction === -1 && currentIndex > 0) {
+        textarea.value = history[currentIndex - 1];
+      } else if (direction === 1 && currentIndex < history.length - 1) {
+        textarea.value = history[currentIndex + 1];
+      }
+
+      if (currentIndex + direction === history.length - 1) {
+        document.getElementById('nextBtn').disabled = true; // Вимкнення кнопки "Наступна", якщо це останній елемент історії
+      } else {
+        document.getElementById('nextBtn').disabled = false;
+      }
+
+      saveToCookie(textarea.value); // Збереження поточного значення у cookie при переміщенні
+    }
+
+    // Завантаження попереднього значення textarea при завантаженні сторінки
+    window.onload = function() {
+      var textarea = document.getElementById('textArea');
+      var savedValue = loadFromCookie();
+      textarea.value = savedValue;
+
+      var history = JSON.parse(localStorage.getItem('textHistory')) || [];
+      history.push(savedValue);
+      localStorage.setItem('textHistory', JSON.stringify(history));
+
+      document.getElementById('prevBtn').disabled = history.length <= 1; // Вимкнення кнопки "Попередня", якщо історія пуста
+      document.getElementById('nextBtn').disabled = true; // Вимкнення кнопки "Наступна", поки не буде збережений новий текст
+
+      document.getElementById('textArea').addEventListener('input', function() {
+        document.getElementById('nextBtn').disabled = true; // Вимкнення кнопки "Наступна" після зміни тексту
+      });
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students Table</title>
+  <style>
+    /* Стилі для таблиці */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div id="studentsTable"></div>
+
+  <script>
+    // Код JavaScript
+    class Student {
+      constructor(lastName, firstName, grades) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.grades = grades;
+      }
+
+      getAvg() {
+        const avg = this.grades.reduce((acc, val) => acc + val, 0) / this.grades.length;
+        return avg.toFixed(2);
+      }
+    }
+
+    class ListOfStudents {
+      constructor(students) {
+        this.students = students;
+      }
+
+      generateTable() {
+        let table = "<table>";
+        table += "<tr><th>Last Name</th><th>First Name</th><th>Grades</th><th>Average</th></tr>";
+        this.students.forEach(student => {
+          const avg = student.getAvg();
+          table += `<tr><td>${student.lastName}</td><td>${student.firstName}</td><td>${student.grades.join(', ')}</td><td>${avg}</td></tr>`;
+        });
+        table += "</table>";
+        return table;
+      }
+
+      getTotalAvg() {
+        const totalAvg = this.students.reduce((acc, student) => acc + parseFloat(student.getAvg()), 0) / this.students.length;
+        return `Total Average: ${totalAvg.toFixed(2)}`;
+      }
+    }
+
+    // Створення об'єктів та виведення результатів
+    const students = [
+      new Student("Doe", "John", [90, 85, 95]),
+      new Student("Smith", "Alice", [88, 92, 78]),
+      new Student("Johnson", "Emily", [75, 80, 85])
+    ];
+
+    const listOfStudents = new ListOfStudents(students);
+    const studentsTable = document.getElementById('studentsTable');
+    
+    studentsTable.innerHTML = listOfStudents.generateTable() + `<p>${listOfStudents.getTotalAvg()}</p>`;
+  </script>
+</body>
+</html>
